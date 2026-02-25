@@ -112,7 +112,7 @@ function withRobot(cfg, log, timeoutMs, operation) {
     });
 
     robot.on('connect', () => {
-      log.debug('[Roomba692] Connected to %s', cfg.ipaddress);
+      log.info('[Roomba692] Connected to %s', cfg.ipaddress);
       operation(robot)
         .then(result => { safeEnd(); settle(resolve, result); })
         .catch(err   => { safeEnd(); settle(reject, err);    });
@@ -182,12 +182,12 @@ class Roomba692Platform {
       const state = await withRobot(cfg, log, CONNECT_TIMEOUT_MS, r => r.getBasicMission());
       this._cache.state     = state;
       this._cache.updatedAt = Date.now();
-      log.debug('[Roomba692] State cache updated — phase: %s  battery: %s%%',
+      log.info('[Roomba692] State cache updated — phase: %s  battery: %s%%',
         state.cleanMissionStatus && state.cleanMissionStatus.phase,
         state.batPct);
     } catch (err) {
       // Keep stale cache — a failed poll doesn't wipe the last known state.
-      log.warn('[Roomba692] State poll failed: %s', err.message);
+      log.error('[Roomba692] State poll failed: %s', err.message);
     }
   }
 
