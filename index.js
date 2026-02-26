@@ -52,8 +52,9 @@ const CONNECT_TIMEOUT_MS = 7000;
 // The robot must enter 'stop' phase before it will accept dock().
 const PAUSE_BEFORE_DOCK_MS = 1500;
 
-// How often the background poller refreshes cached robot state.
-const POLL_INTERVAL_MS = 30000;
+// Background poll intervals — adapt based on robot activity.
+const IDLE_POLL_MS   = 300000;  // 5 min when docked/idle (default)
+const ACTIVE_POLL_MS = 30000;   // 30s when cleaning or returning to dock
 
 // ============================================================
 // Plugin entry point — modern API export format.
@@ -137,6 +138,15 @@ function getBattery(state) {
   return (state && typeof state.batPct === 'number') ? state.batPct : 50;
 }
 
+// Returns true when the robot is actively doing something —
+// cleaning, returning to dock, or stuck. Used to decide poll speed.
+function isActivePhase(state) {
+  try {
+    const p = state.cleanMissionStatus.phase;
+    return p === 'run' || p === 'hmUsrDock' || p === 'hmPostMsn' || p === 'stuck';
+  } catch { return false; }
+}
+
 // ============================================================
 // Platform
 // ============================================================
@@ -189,13 +199,23 @@ class Roomba692Platform {
       // Keep stale cache — a failed poll doesn't wipe the last known state.
       log.error('[Roomba692] State poll failed: %s', err.message);
     }
+    // Schedule next poll at a rate appropriate for the current state
+    this._scheduleNextPoll();
+  }
+
+  _scheduleNextPoll() {
+    clearTimeout(this._pollTimer);
+    const active   = isActivePhase(this._cache.state);
+    const interval = active ? this._activePollMs : this._idlePollMs;
+    this._pollTimer = setTimeout(() => this._poll(), interval);
+    this.log.info('[Roomba692] Next poll in %ds (%s)',
+      Math.round(interval / 1000), active ? 'active' : 'idle');
   }
 
   _startPolling() {
-    // Immediate first poll so cache is warm by the time HomeKit asks
+    // Immediate first poll so cache is warm by the time HomeKit asks.
+    // _poll() will self-schedule subsequent polls via _scheduleNextPoll().
     this._poll();
-    // Then refresh on a regular interval
-    this._pollTimer = setInterval(() => this._poll(), POLL_INTERVAL_MS);
   }
 
   // ----------------------------------------------------------
@@ -211,6 +231,10 @@ class Roomba692Platform {
     }
 
     const cfg = { blid: config.blid, robotpwd: config.robotpwd, ipaddress: config.ipaddress };
+
+    // Configurable poll intervals (seconds in config, ms internally)
+    this._idlePollMs   = (config.pollInterval       || 300) * 1000;
+    this._activePollMs = (config.activePollInterval  || 30)  * 1000;
 
     const uuid = api.hap.uuid.generate(config.blid);
     let accessory = this.cachedAccessories.get(uuid);
