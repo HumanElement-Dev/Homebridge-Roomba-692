@@ -1,0 +1,151 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 640" width="1280" height="640">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#06061A"/>
+      <stop offset="100%" stop-color="#0E0E2C"/>
+    </linearGradient>
+    <radialGradient id="robotGlow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="#7C3AED" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#7C3AED" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="robotBody" cx="35%" cy="30%" r="70%">
+      <stop offset="0%" stop-color="#1A1740"/>
+      <stop offset="100%" stop-color="#0A0A1E"/>
+    </radialGradient>
+    <linearGradient id="accentLine" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <linearGradient id="accentLineV" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#7C3AED"/>
+      <stop offset="100%" stop-color="#06B6D4"/>
+    </linearGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur stdDeviation="4" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1280" height="640" fill="url(#bg)"/>
+
+  <!-- Subtle dot grid -->
+  <pattern id="dots" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+    <circle cx="20" cy="20" r="1" fill="#FFFFFF" opacity="0.03"/>
+  </pattern>
+  <rect width="1280" height="640" fill="url(#dots)"/>
+
+  <!-- Robot ambient glow -->
+  <circle cx="245" cy="295" r="220" fill="url(#robotGlow)"/>
+
+  <!-- ====== ROBOT ILLUSTRATION ====== -->
+
+  <!-- Body -->
+  <circle cx="245" cy="295" r="165" fill="url(#robotBody)" stroke="#3730A3" stroke-width="1.5"/>
+
+  <!-- Ring 1 -->
+  <circle cx="245" cy="295" r="130" fill="none" stroke="#1E1B4B" stroke-width="1"/>
+
+  <!-- Ring 2 dashed -->
+  <circle cx="245" cy="295" r="88" fill="none" stroke="#1E1B4B" stroke-width="1" stroke-dasharray="3 9"/>
+
+  <!-- Center hub -->
+  <circle cx="245" cy="295" r="32" fill="#111128" stroke="#7C3AED" stroke-width="2"/>
+  <circle cx="245" cy="295" r="10" fill="#7C3AED" opacity="0.85" filter="url(#softGlow)"/>
+
+  <!-- Bump sensor arc — robot faces right -->
+  <!-- Arc endpoints at ±45° from horizontal at r=165:
+       Top:    (245 + 165·cos45, 295 - 165·sin45) = (362, 178)
+       Bottom: (362, 412) -->
+  <path d="M 362 178 A 165 165 0 0 1 362 412"
+    fill="none" stroke="#7C3AED" stroke-width="3" stroke-linecap="round"/>
+
+  <!-- Sensor dots (at 30°, 0°, -30° from horizontal) -->
+  <!-- 0°:  (245+165, 295) = (410, 295) -->
+  <!-- 30°: (245+165·cos30, 295-165·sin30) = (245+142.9, 295-82.5) = (388, 213) -->
+  <!-- -30°:(388, 377) -->
+  <circle cx="388" cy="213" r="7" fill="#7C3AED" filter="url(#softGlow)"/>
+  <circle cx="410" cy="295" r="7" fill="#06B6D4" filter="url(#softGlow)"/>
+  <circle cx="388" cy="377" r="7" fill="#7C3AED" filter="url(#softGlow)"/>
+
+  <!-- IR sensors top of robot -->
+  <circle cx="218" cy="142" r="7" fill="#06B6D4" opacity="0.85"/>
+  <circle cx="272" cy="142" r="7" fill="#06B6D4" opacity="0.85"/>
+
+  <!-- Side brush (bottom-left of body) -->
+  <circle cx="133" cy="395" r="22" fill="none" stroke="#2A2760" stroke-width="1.5"/>
+  <circle cx="133" cy="395" r="6" fill="#2A2760"/>
+
+  <!-- Directional sweep rays from center (faint) -->
+  <line x1="245" y1="295" x2="388" y2="178" stroke="#7C3AED" stroke-width="1" opacity="0.12"/>
+  <line x1="245" y1="295" x2="410" y2="295" stroke="#7C3AED" stroke-width="1" opacity="0.12"/>
+  <line x1="245" y1="295" x2="388" y2="412" stroke="#7C3AED" stroke-width="1" opacity="0.12"/>
+
+  <!-- ====== DIVIDER ====== -->
+  <line x1="490" y1="70" x2="490" y2="555" stroke="#1A1A3A" stroke-width="1"/>
+
+  <!-- ====== RIGHT COLUMN TEXT ====== -->
+
+  <!-- "homebridge-" -->
+  <text x="540" y="230"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="64" font-weight="700" fill="#F1F5F9" letter-spacing="-1.5">homebridge-</text>
+
+  <!-- "roomba692" accented -->
+  <text x="540" y="310"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="64" font-weight="700" fill="#A78BFA" letter-spacing="-1.5">roomba692</text>
+
+  <!-- Gradient underline -->
+  <rect x="540" y="324" width="520" height="3" rx="1.5" fill="url(#accentLine)"/>
+
+  <!-- Subtitle -->
+  <text x="540" y="375"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="23" fill="#64748B">iRobot 600-series · HomeKit · Node 18+ · OpenSSL 3</text>
+
+  <!-- ── Pills ── -->
+
+  <!-- Homebridge pill -->
+  <rect x="540" y="408" width="210" height="38" rx="19" fill="#13103A" stroke="#4338CA" stroke-width="1.5"/>
+  <text x="645" y="432" text-anchor="middle"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="16" fill="#A78BFA">Homebridge ≥1.3</text>
+
+  <!-- Node pill -->
+  <rect x="764" y="408" width="135" height="38" rx="19" fill="#0A1F14" stroke="#166534" stroke-width="1.5"/>
+  <text x="832" y="432" text-anchor="middle"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="16" fill="#34D399">Node ≥18</text>
+
+  <!-- MIT pill -->
+  <rect x="913" y="408" width="88" height="38" rx="19" fill="#1C1508" stroke="#92400E" stroke-width="1.5"/>
+  <text x="957" y="432" text-anchor="middle"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="16" fill="#FCD34D">MIT</text>
+
+  <!-- ====== FOOTER BAR ====== -->
+  <rect x="0" y="568" width="1280" height="72" fill="#040410"/>
+
+  <!-- Top edge accent line -->
+  <rect x="0" y="567" width="1280" height="2" fill="url(#accentLine)"/>
+
+  <!-- Left accent bar -->
+  <rect x="0" y="568" width="4" height="72" fill="url(#accentLineV)"/>
+
+  <!-- Diamond HE mark -->
+  <polygon points="46,590 58,602 46,614 34,602" fill="none" stroke="#7C3AED" stroke-width="1.5"/>
+  <polygon points="46,595 53,602 46,609 39,602" fill="#7C3AED" opacity="0.3"/>
+
+  <!-- "A HumanElement idea" -->
+  <text x="74" y="610"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="20">
+    <tspan fill="#475569">A </tspan><tspan fill="#A78BFA" font-weight="600">HumanElement</tspan><tspan fill="#475569"> idea</tspan>
+  </text>
+
+  <!-- URL right-aligned -->
+  <text x="1245" y="610" text-anchor="end"
+    font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
+    font-size="17" fill="#334155" letter-spacing="0.3">HumanElement.agency</text>
+</svg>

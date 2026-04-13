@@ -272,9 +272,13 @@ class Roomba692Platform {
         log.info('[Roomba692] setOn → %s', value ? 'CLEAN' : 'DOCK');
 
         if (value) {
-          await withRobot(cfg, log, CONNECT_TIMEOUT_MS, async (r) => {
-            await r.clean();
-          });
+          try {
+            await withRobot(cfg, log, CONNECT_TIMEOUT_MS, async (r) => {
+              await r.clean();
+            });
+          } catch (err) {
+            log.warn('[Roomba692] clean error: %s', err.message);
+          }
         } else {
           try {
             await withRobot(cfg, log, CONNECT_TIMEOUT_MS + PAUSE_BEFORE_DOCK_MS, async (r) => {

@@ -1,5 +1,11 @@
 # homebridge-roomba692
 
+<img src=".github/social-preview.svg" alt="homebridge-roomba692 banner" width="100%"/>
+
+[![Homebridge](https://img.shields.io/badge/homebridge-%3E%3D1.3-purple?logo=homebridge&logoColor=white)](https://github.com/homebridge/homebridge)
+[![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 Homebridge plugin for the iRobot Roomba 692 (and other 600-series models).
 
 Exposes the Roomba as a **Switch** in HomeKit — on means cleaning, off means dock. Also provides a **Battery** tile showing charge level and charging state.
@@ -47,20 +53,24 @@ sudo hb-service restart
 
 ## Homebridge config.json
 
-Add to the `"accessories"` array in your Homebridge `config.json`:
+Add to the `"platforms"` array in your Homebridge `config.json`:
 
 ```json
 {
-  "accessory": "Roomba692",
-  "name": "Roomba",
-  "blid": "YOUR_BLID_HERE",
-  "robotpwd": "YOUR_PASSWORD_HERE",
-  "ipaddress": "192.168.x.x",
-  "model": "Roomba 692"
+  "platforms": [
+    {
+      "platform": "Roomba692Platform",
+      "name": "Roomba",
+      "blid": "YOUR_BLID_HERE",
+      "robotpwd": "YOUR_PASSWORD_HERE",
+      "ipaddress": "192.168.x.x",
+      "model": "Roomba 692"
+    }
+  ]
 }
 ```
 
-**Migrating from homebridge-roomba-stv?** Your `blid`, `robotpwd`, and `ipaddress` values stay the same. Just change `"accessory": "Roomba"` to `"accessory": "Roomba692"` and uninstall the old plugin.
+**Migrating from homebridge-roomba-stv?** Your `blid`, `robotpwd`, and `ipaddress` values stay the same. Just update the config key to `"platform": "Roomba692Platform"` and uninstall the old plugin.
 
 **Tip:** Set a static DHCP lease for your Roomba in your router so the IP never changes.
 
@@ -68,7 +78,7 @@ Add to the `"accessories"` array in your Homebridge `config.json`:
 
 | Field | Required | Description |
 |-------|----------|-------------|
-| `accessory` | Yes | Must be `"Roomba692"` |
+| `platform` | Yes | Must be `"Roomba692Platform"` |
 | `name` | Yes | Display name in Home app |
 | `blid` | Yes | Robot BLID from dorita980 |
 | `robotpwd` | Yes | Robot password from dorita980 |
@@ -98,3 +108,8 @@ The Roomba 692 supports only one local connection at a time. While Homebridge is
 
 **Battery shows 50%**
 - This is the fallback value when battery data isn't available from the MQTT stream. It doesn't affect the Switch functionality.
+
+---
+
+*A [HumanElement](https://HumanElement.agency) idea*
+*Made with love by HumanElement & Claude <3*
