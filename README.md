@@ -111,5 +111,5 @@ The Roomba 692 supports only one local connection at a time. While Homebridge is
 
 ---
 
-*A [HumanElement](https://HumanElement.agency) idea*
+*A [HumanElement](https://HumanElement.agency) idea* <br />
 *Made with love by HumanElement & Claude <3*
