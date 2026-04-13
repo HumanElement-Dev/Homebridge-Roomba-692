@@ -1,6 +1,6 @@
 # homebridge-roomba692
 
-<img src=".github/social-preview.svg" alt="homebridge-roomba692 banner" width="100%"/>
+<img src="assets/social-preview.png" alt="homebridge-roomba692 banner" width="100%"/>
 
 [![Homebridge](https://img.shields.io/badge/homebridge-%3E%3D1.3-purple?logo=homebridge&logoColor=white)](https://github.com/homebridge/homebridge)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
