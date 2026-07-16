@@ -3,6 +3,11 @@
   "version": "1.0.1",
   "description": "Homebridge plugin for iRobot Roomba 692 — fixes No Response on Node 18+",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "config.schema.json",
+    "LICENSE"
+  ],
   "keywords": [
     "homebridge-plugin",
     "iRobot",

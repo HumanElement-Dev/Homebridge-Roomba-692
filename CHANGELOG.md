@@ -6,6 +6,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
+## [Unreleased]
+
+### Added
+- `LICENSE` file (MIT) — package.json and README badge already claimed MIT; the file was missing.
+- `config.schema.json` — renders a form for `blid`/`robotpwd`/`ipaddress`/etc. in Homebridge Config UI X instead of requiring manual `config.json` edits.
+- `"files"` field in `package.json` to keep the published npm package limited to runtime files.
+
 ## [1.0.1] — 2026-04-13
 
 ### Fixed
@@ -13,7 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - **Platform config documentation** — README incorrectly documented the plugin as an `"accessory"` type. It must be configured under `"platforms"` with `"platform": "Roomba692Platform"`. The old instructions would silently fail to load the plugin.
 
 ### Added
-- **HumanElement branding** — social preview banner (`.github/social-preview.svg`), square plugin icon (`assets/icon.svg`), and `"A HumanElement idea"` attribution.
+- **HumanElement branding** — social preview banner (`.github/social-preview.svg`, `assets/social-preview.png`) and `"A HumanElement idea"` attribution.
 - **README badges** — Homebridge ≥1.3, Node ≥18, MIT license badges.
 - **`package.json` metadata** — added `author`, `repository`, `homepage`, and `bugs` fields.
 
@@ -38,8 +45,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Async patterns use `new Promise(resolve => setTimeout(resolve, ms))` throughout — `await setTimeout()` silently breaks on Node 18 (returns void, not a Promise).
 
 ## [0.0.1] - 2026-02-25
-
-## [Unreleased]
 
 ---
 

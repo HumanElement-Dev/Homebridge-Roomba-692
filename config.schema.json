@@ -1,0 +1,70 @@
+{
+  "pluginAlias": "Roomba692Platform",
+  "pluginType": "platform",
+  "singular": true,
+  "headerDisplay": "Homebridge plugin for the iRobot Roomba 692 (600-series). Requires the robot's BLID and local password — see the [README](https://github.com/HumanElement-Dev/Homebridge-Roomba-692#getting-your-blid-and-password) for how to get them.",
+  "schema": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "title": "Name",
+        "type": "string",
+        "default": "Roomba",
+        "required": true
+      },
+      "blid": {
+        "title": "BLID",
+        "type": "string",
+        "required": true,
+        "description": "Robot BLID from dorita980."
+      },
+      "robotpwd": {
+        "title": "Robot Password",
+        "type": "string",
+        "required": true,
+        "description": "Robot local password from dorita980."
+      },
+      "ipaddress": {
+        "title": "IP Address",
+        "type": "string",
+        "required": true,
+        "format": "ipv4",
+        "description": "Robot's local IP address. A static DHCP reservation is recommended."
+      },
+      "model": {
+        "title": "Model",
+        "type": "string",
+        "default": "Roomba 692",
+        "required": false,
+        "description": "Model string shown in the Home app."
+      },
+      "pollInterval": {
+        "title": "Idle Poll Interval (seconds)",
+        "type": "integer",
+        "default": 300,
+        "required": false,
+        "description": "How often to poll the robot when docked/idle."
+      },
+      "activePollInterval": {
+        "title": "Active Poll Interval (seconds)",
+        "type": "integer",
+        "default": 30,
+        "required": false,
+        "description": "How often to poll the robot while it's cleaning, returning to dock, or stuck."
+      }
+    }
+  },
+  "form": [
+    "name",
+    "blid",
+    "robotpwd",
+    "ipaddress",
+    "model",
+    {
+      "type": "fieldset",
+      "title": "Advanced",
+      "expandable": true,
+      "items": ["pollInterval", "activePollInterval"]
+    }
+  ]
+}

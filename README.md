@@ -84,7 +84,8 @@ Add to the `"platforms"` array in your Homebridge `config.json`:
 | `robotpwd` | Yes | Robot password from dorita980 |
 | `ipaddress` | Yes | Robot's local IP address |
 | `model` | No | Model string shown in Home app (default: `"Roomba 692"`) |
-| `timeout` | No | Seconds to wait for a response (default: 12) |
+| `pollInterval` | No | Seconds between background polls when idle/docked (default: 300) |
+| `activePollInterval` | No | Seconds between background polls while cleaning (default: 30) |
 
 ## Usage
 
