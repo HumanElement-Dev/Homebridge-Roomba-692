@@ -2,11 +2,17 @@
 
 <img src="assets/repo-hero.png" alt="homebridge-roomba692 banner" width="100%"/>
 
-[![Homebridge](https://img.shields.io/badge/homebridge-%3E%3D1.3-purple?logo=homebridge&logoColor=white)](https://github.com/homebridge/homebridge)
-[![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub release](https://img.shields.io/github/v/release/HumanElement-Dev/Homebridge-Roomba-692)](https://github.com/HumanElement-Dev/Homebridge-Roomba-692/releases)
+[![Homebridge](https://img.shields.io/badge/homebridge-%3E%3D1.3-2F80FF?style=flat-square&labelColor=000000&logo=homebridge&logoColor=white)](https://github.com/homebridge/homebridge)
+[![Node](https://img.shields.io/badge/node-%3E%3D18-2F80FF?style=flat-square&labelColor=000000&logo=node.js&logoColor=white)](https://nodejs.org)
+[![License: MIT](https://img.shields.io/badge/license-MIT-2F80FF?style=flat-square&labelColor=000000)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/HumanElement-Dev/Homebridge-Roomba-692?style=flat-square&labelColor=000000&color=2F80FF)](https://github.com/HumanElement-Dev/Homebridge-Roomba-692/releases)
 [![CI](https://github.com/HumanElement-Dev/Homebridge-Roomba-692/actions/workflows/ci.yml/badge.svg)](https://github.com/HumanElement-Dev/Homebridge-Roomba-692/actions/workflows/ci.yml)
+
+```
+platform// Homebridge
+model//    Roomba 692 (600-series)
+built by// [HumanElement]
+```
 
 Homebridge plugin for the iRobot Roomba 692 (and other 600-series models).
 
@@ -17,7 +23,7 @@ Exposes the Roomba as a **Switch** in HomeKit — on means cleaning, off means d
 - ⚡ **Adaptive polling** — 30s while cleaning, 5min when idle, so the cache stays fresh without hammering the robot
 - 🖥️ **Config UI X support** — configure `blid`/`robotpwd`/`ipaddress` through a form, no manual JSON editing required
 
-## Why this plugin?
+## [WHY THIS PLUGIN]
 
 Existing Roomba plugins show "No Response" in HomeKit when running on Node 18+ (Raspberry Pi OS Bookworm). There are two compounding causes:
 
@@ -25,13 +31,13 @@ Existing Roomba plugins show "No Response" in HomeKit when running on Node 18+ (
 
 2. **Broken async patterns in older plugins** — `await setTimeout()` doesn't work (setTimeout returns void, not a Promise). This silently breaks the async chain, so HomeKit callbacks are never called. This plugin uses `await new Promise(resolve => setTimeout(resolve, ms))` throughout.
 
-## Prerequisites
+## [PREREQUISITES]
 
 - Homebridge installed and running
 - Roomba 692 on the same WiFi network as your Homebridge host
 - Your Roomba's BLID and local password (see below)
 
-## Getting your BLID and password
+## [GETTING YOUR BLID AND PASSWORD]
 
 Run this once on any machine with Node.js installed:
 
@@ -42,7 +48,7 @@ get-roomba-password-cloud your@email.com yourPassword
 
 Note the BLID and Password values from the output. These go in your config.
 
-## Installation
+## [INSTALLATION]
 
 Copy the plugin folder to your Raspberry Pi, then:
 
@@ -58,7 +64,7 @@ Then restart Homebridge:
 sudo hb-service restart
 ```
 
-## Homebridge config.json
+## [HOMEBRIDGE CONFIG.JSON]
 
 Add to the `"platforms"` array in your Homebridge `config.json`:
 
@@ -81,7 +87,7 @@ Add to the `"platforms"` array in your Homebridge `config.json`:
 
 **Tip:** Set a static DHCP lease for your Roomba in your router so the IP never changes.
 
-## Config options
+## [CONFIG OPTIONS]
 
 | Field | Required | Description |
 |-------|----------|-------------|
@@ -94,17 +100,17 @@ Add to the `"platforms"` array in your Homebridge `config.json`:
 | `pollInterval` | No | Seconds between background polls when idle/docked (default: 300) |
 | `activePollInterval` | No | Seconds between background polls while cleaning (default: 30) |
 
-## Usage
+## [USAGE]
 
 - **Turn on** in Home app → Roomba starts cleaning
 - **Turn off** in Home app → Roomba pauses then returns to dock
 - **Battery tile** → shows current battery percentage and charging status
 
-## Mobile app note
+## [MOBILE APP NOTE]
 
 The Roomba 692 supports only one local connection at a time. While Homebridge is communicating with the robot (a few seconds per operation), the iRobot app may temporarily fall back to cloud control. The plugin connects and disconnects quickly to keep this window minimal.
 
-## Troubleshooting
+## [TROUBLESHOOTING]
 
 **Still shows "No Response"**
 - Confirm the Roomba is on WiFi and pingable from the Pi: `ping 192.168.x.x`
@@ -118,6 +124,8 @@ The Roomba 692 supports only one local connection at a time. While Homebridge is
 - This is the fallback value when battery data isn't available from the MQTT stream. It doesn't affect the Switch functionality.
 
 ---
+
+`HE-PLG-HB-RM692-001`
 
 *A [HumanElement](https://HumanElement.agency) idea* <br />
 *Made with love by HumanElement & Claude <3*

@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `"files"` field in `package.json` to keep the published npm package limited to runtime files.
 - CI workflow (`.github/workflows/ci.yml`) — sanity-checks that `index.js` loads and `config.schema.json` is valid JSON on every push/PR.
 - README feature bullet list and CI badge.
+- README brand pass — bracketed section headers, `//`-labeled spec block, brand-blue badges, and the `HE-PLG-HB-RM692-001` ID tag in the footer, matching the HumanElement visual system used in the hero banner.
 
 ## [1.0.1] — 2026-04-13
 
