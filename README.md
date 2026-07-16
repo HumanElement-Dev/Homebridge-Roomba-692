@@ -6,10 +6,16 @@
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![GitHub release](https://img.shields.io/github/v/release/HumanElement-Dev/Homebridge-Roomba-692)](https://github.com/HumanElement-Dev/Homebridge-Roomba-692/releases)
+[![CI](https://github.com/HumanElement-Dev/Homebridge-Roomba-692/actions/workflows/ci.yml/badge.svg)](https://github.com/HumanElement-Dev/Homebridge-Roomba-692/actions/workflows/ci.yml)
 
 Homebridge plugin for the iRobot Roomba 692 (and other 600-series models).
 
 Exposes the Roomba as a **Switch** in HomeKit — on means cleaning, off means dock. Also provides a **Battery** tile showing charge level and charging state.
+
+- 🧹 **HomeKit Switch + Battery tile** — start/stop cleaning and monitor charge from the Home app
+- 🔧 **Fixes "No Response" on Node 18+** — patches the OpenSSL 3 / TLS incompatibilities other Roomba plugins hit on modern Node
+- ⚡ **Adaptive polling** — 30s while cleaning, 5min when idle, so the cache stays fresh without hammering the robot
+- 🖥️ **Config UI X support** — configure `blid`/`robotpwd`/`ipaddress` through a form, no manual JSON editing required
 
 ## Why this plugin?
 

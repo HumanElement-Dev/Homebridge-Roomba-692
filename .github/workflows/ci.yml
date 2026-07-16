@@ -1,0 +1,25 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  sanity-check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+
+      - run: npm install
+
+      - name: Verify plugin loads
+        run: node -e "require('./index.js'); console.log('index.js loaded without throwing')"
+
+      - name: Validate config.schema.json
+        run: node -e "JSON.parse(require('fs').readFileSync('config.schema.json', 'utf8')); console.log('config.schema.json is valid JSON')"

@@ -12,6 +12,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - `LICENSE` file (MIT) — package.json and README badge already claimed MIT; the file was missing.
 - `config.schema.json` — renders a form for `blid`/`robotpwd`/`ipaddress`/etc. in Homebridge Config UI X instead of requiring manual `config.json` edits.
 - `"files"` field in `package.json` to keep the published npm package limited to runtime files.
+- CI workflow (`.github/workflows/ci.yml`) — sanity-checks that `index.js` loads and `config.schema.json` is valid JSON on every push/PR.
+- README feature bullet list and CI badge.
 
 ## [1.0.1] — 2026-04-13
 
