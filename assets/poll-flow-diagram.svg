@@ -1,0 +1,70 @@
+<svg viewBox="0 0 900 620" xmlns="http://www.w3.org/2000/svg" role="img">
+  <title>Roomba692 poll flow architecture</title>
+  <desc>didFinishLaunching leads to _sync, which starts polling. _poll calls withRobot to fetch mission state, then _scheduleNextPoll adapts the interval and loops back to _poll: 30 seconds while active, 5 minutes while idle.</desc>
+
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#2F80FF"/>
+    </marker>
+    <marker id="arrowLoop" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+      <path d="M0,0 L10,5 L0,10 z" fill="#6B6B6B"/>
+    </marker>
+  </defs>
+
+  <rect x="0" y="0" width="900" height="620" fill="#0A0A0A"/>
+
+  <!-- corner bracket motif -->
+  <text x="32" y="44" font-family="'Courier New', monospace" font-size="13" font-weight="700" fill="#FFFFFF" letter-spacing="1">[HUMANELEMENT]</text>
+  <text x="32" y="62" font-family="'Courier New', monospace" font-size="11" fill="#8A8A8A" letter-spacing="0.5">homebridge-roomba692 // poll flow</text>
+  <line x1="32" y1="74" x2="868" y2="74" stroke="#FFFFFF" stroke-width="1" opacity="0.5"/>
+
+  <!-- Node 1 -->
+  <rect x="330" y="100" width="240" height="56" fill="none" stroke="#FFFFFF" stroke-width="1.25"/>
+  <text x="450" y="124" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="700" fill="#FFFFFF">didFinishLaunching</text>
+  <text x="450" y="142" text-anchor="middle" font-family="'Courier New', monospace" font-size="10.5" fill="#8A8A8A">Homebridge platform hook</text>
+
+  <line x1="450" y1="156" x2="450" y2="186" stroke="#2F80FF" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Node 2 -->
+  <rect x="300" y="188" width="300" height="60" fill="none" stroke="#FFFFFF" stroke-width="1.25"/>
+  <text x="450" y="212" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="700" fill="#FFFFFF">_sync()</text>
+  <text x="450" y="230" text-anchor="middle" font-family="'Courier New', monospace" font-size="10.5" fill="#8A8A8A">register accessory, wire characteristics</text>
+
+  <line x1="450" y1="248" x2="450" y2="278" stroke="#2F80FF" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Node 3 -->
+  <rect x="330" y="280" width="240" height="52" fill="none" stroke="#FFFFFF" stroke-width="1.25"/>
+  <text x="450" y="311" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="700" fill="#FFFFFF">_startPolling()</text>
+
+  <line x1="450" y1="332" x2="450" y2="362" stroke="#2F80FF" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Node 4: _poll (loop anchor) -->
+  <rect x="300" y="364" width="300" height="60" fill="#0A0A0A" stroke="#2F80FF" stroke-width="1.5"/>
+  <text x="450" y="388" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="700" fill="#2F80FF">_poll()</text>
+  <text x="450" y="406" text-anchor="middle" font-family="'Courier New', monospace" font-size="10.5" fill="#8A8A8A">withRobot() → getBasicMission()</text>
+
+  <line x1="450" y1="424" x2="450" y2="454" stroke="#2F80FF" stroke-width="1.5" marker-end="url(#arrow)"/>
+
+  <!-- Node 5 -->
+  <rect x="280" y="456" width="340" height="66" fill="none" stroke="#FFFFFF" stroke-width="1.25"/>
+  <text x="450" y="480" text-anchor="middle" font-family="'Courier New', monospace" font-size="13" font-weight="700" fill="#FFFFFF">_scheduleNextPoll()</text>
+  <text x="450" y="498" text-anchor="middle" font-family="'Courier New', monospace" font-size="10.5" fill="#8A8A8A">adaptive interval, self-schedules next poll</text>
+
+  <!-- adaptive labels -->
+  <rect x="640" y="460" width="150" height="30" fill="none" stroke="#2F80FF" stroke-width="1"/>
+  <text x="715" y="479" text-anchor="middle" font-family="'Courier New', monospace" font-size="10.5" fill="#2F80FF">active// 30s</text>
+
+  <rect x="640" y="496" width="150" height="30" fill="none" stroke="#6B6B6B" stroke-width="1"/>
+  <text x="715" y="515" text-anchor="middle" font-family="'Courier New', monospace" font-size="10.5" fill="#B0B0B0">idle// 5min</text>
+
+  <line x1="620" y1="475" x2="640" y2="475" stroke="#2F80FF" stroke-width="1"/>
+  <line x1="620" y1="511" x2="640" y2="511" stroke="#6B6B6B" stroke-width="1"/>
+
+  <!-- loop back to _poll -->
+  <path d="M 280 489 C 180 489, 180 394, 300 394" fill="none" stroke="#6B6B6B" stroke-width="1.25" stroke-dasharray="4 3" marker-end="url(#arrowLoop)"/>
+  <text x="150" y="450" text-anchor="middle" font-family="'Courier New', monospace" font-size="10" fill="#6B6B6B" transform="rotate(-90 150 450)">loop</text>
+
+  <line x1="32" y1="556" x2="868" y2="556" stroke="#FFFFFF" stroke-width="1" opacity="0.5"/>
+  <text x="32" y="580" font-family="'Courier New', monospace" font-size="10.5" fill="#8A8A8A">all HomeKit onGet handlers read from this._cache — never open a live connection</text>
+  <text x="868" y="580" text-anchor="end" font-family="'Courier New', monospace" font-size="10.5" fill="#6B6B6B">HE-PLG-HB-RM692-002</text>
+</svg>

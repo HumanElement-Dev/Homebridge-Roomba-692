@@ -31,6 +31,12 @@ Existing Roomba plugins show "No Response" in HomeKit when running on Node 18+ (
 
 2. **Broken async patterns in older plugins** — `await setTimeout()` doesn't work (setTimeout returns void, not a Promise). This silently breaks the async chain, so HomeKit callbacks are never called. This plugin uses `await new Promise(resolve => setTimeout(resolve, ms))` throughout.
 
+## [ARCHITECTURE]
+
+<img src="assets/poll-flow-diagram.svg" alt="Background poll flow: didFinishLaunching leads to _sync, which starts polling; _poll calls withRobot to fetch mission state, then _scheduleNextPoll adapts the interval and loops back — 30s while active, 5min while idle." width="100%"/>
+
+All HomeKit `onGet` handlers read from an in-memory cache — they never open a live connection to the robot. A background poller keeps that cache fresh and adapts its own interval based on what the robot is doing.
+
 ## [PREREQUISITES]
 
 - Homebridge installed and running
