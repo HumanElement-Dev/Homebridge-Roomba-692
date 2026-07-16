@@ -5,6 +5,7 @@
 [![Homebridge](https://img.shields.io/badge/homebridge-%3E%3D1.3-purple?logo=homebridge&logoColor=white)](https://github.com/homebridge/homebridge)
 [![Node](https://img.shields.io/badge/node-%3E%3D18-brightgreen?logo=node.js&logoColor=white)](https://nodejs.org)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub release](https://img.shields.io/github/v/release/HumanElement-Dev/Homebridge-Roomba-692)](https://github.com/HumanElement-Dev/Homebridge-Roomba-692/releases)
 
 Homebridge plugin for the iRobot Roomba 692 (and other 600-series models).
 
